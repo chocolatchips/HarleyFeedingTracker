@@ -1,4 +1,5 @@
 ﻿using HarleyFeedingTracker.Models;
+using static HarleyFeedingTracker.Constants.ApiConstants;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,12 +9,11 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 
+
 namespace HarleyFeedingTracker.Services
 {
-    public class RestService
-    {
-        private const string morning = "harley/morning";
-        private Uri baseUri = new("https://www.sheard.ca");
+    public class RestService : IRestServices
+    {   
         HttpClient _client;
         JsonSerializerOptions _serializerOptions;
 
@@ -28,27 +28,33 @@ namespace HarleyFeedingTracker.Services
         }
 
 
-        public async Task<string> GetFedAsync()
+        public async Task<bool> GetFedAsync()
         {
-            Uri uri = new(baseUri, morning);
-
+            Uri uri = new(BaseUri, Morning);
+            
             try
             {
                 HttpResponseMessage res = _client.GetAsync(uri).Result;
                 if (res.IsSuccessStatusCode)
                 {
                     string content = await res.Content.ReadAsStringAsync();
-                    return content;
+                    FedItem fed = JsonSerializer.Deserialize<FedItem>(content)!;
+                    return fed.IsFed;
                 }
 
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                Debug.WriteLine(ex.Message);
             }
 
-            return uri.ToString();
+            return false;
         }
 
+        public async Task<bool> UpdateFedAsync()
+        {
+
+            throw new NotImplementedException();
+        }
     }
 }

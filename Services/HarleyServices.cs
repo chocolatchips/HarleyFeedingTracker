@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HarleyFeedingTracker.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace HarleyFeedingTracker.Services
             throw new NotImplementedException();
         }
 
-        public Task<string> GetIsFedAsync()
+        public Task<bool> GetIsFedAsync()
         {
             return _restService.GetFedAsync();
         }

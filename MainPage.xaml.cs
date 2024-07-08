@@ -1,4 +1,5 @@
 ﻿using HarleyFeedingTracker.Services;
+using HarleyFeedingTracker.Constants;
 
 namespace HarleyFeedingTracker
 {
@@ -17,9 +18,8 @@ namespace HarleyFeedingTracker
 
         private async void OnFedClicked(object sender, EventArgs e)
         {
-            //fedYetButton.Text = "No. Please feed me.";
-
-            fedYetButton.Text = await _harleyService.GetIsFedAsync();
+            bool isFed = await _harleyService.GetIsFedAsync();
+            fedYetButton.Text = isFed ? Text.HarleyWasFed : Text.HarleyNotFed;
         }
     }
 
