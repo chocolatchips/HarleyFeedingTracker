@@ -5,7 +5,6 @@ namespace HarleyFeedingTracker
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
         HarleyServices _harleyService;
 
 
@@ -13,13 +12,32 @@ namespace HarleyFeedingTracker
         {
             InitializeComponent();
             _harleyService = new();
+            feedButton.Text = Text.FeedHarleyQuestion;
+
+            if (DateTime.Now.Hour >= 12)
+                harleyImage.Source = "harleynight.jpeg";
+            else
+                harleyImage.Source = "harleyandnala.jpeg";
         }
 
 
         private async void OnFedClicked(object sender, EventArgs e)
         {
             bool isFed = await _harleyService.GetIsFedAsync();
-            fedYetButton.Text = isFed ? Text.HarleyWasFed : Text.HarleyNotFed;
+            if (isFed)
+            {
+                fedYetButton.Text = Text.HarleyWasFed;
+            }
+            else
+            {
+                fedYetButton.Text = Text.HarleyNotFed;
+                feedButton.IsVisible = true;
+            }
+        }
+
+        private async void OnFeedButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new FeedingPage());
         }
     }
 

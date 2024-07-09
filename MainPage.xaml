@@ -8,7 +8,7 @@
             Padding="30,0"
             Spacing="25">
             <Image
-                Source="harleyandnala.jpeg"
+                x:Name="harleyImage"
                 HeightRequest="185"
                 Aspect="AspectFit"
                 SemanticProperties.Description="A picture of Harley and Nala" />
@@ -29,7 +29,15 @@
                 Text="Have I been fed?" 
                 SemanticProperties.Hint="Returns if Harley has been fed"
                 Clicked="OnFedClicked"
-                HorizontalOptions="Fill" />
+                HorizontalOptions="Center" />
+
+            <Button
+                x:Name="feedButton"
+                SemanticProperties.Hint="Button to provide details about feeding Harley."
+                Clicked="OnFeedButtonClicked"
+                IsVisible="False"
+                HorizontalOptions="Center" />
+            
         </VerticalStackLayout>
     </ScrollView>
 

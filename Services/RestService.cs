@@ -17,6 +17,7 @@ namespace HarleyFeedingTracker.Services
         HttpClient _client;
         JsonSerializerOptions _serializerOptions;
 
+
         public RestService()
         {
             _client = new HttpClient();
@@ -30,7 +31,12 @@ namespace HarleyFeedingTracker.Services
 
         public async Task<bool> GetFedAsync()
         {
-            Uri uri = new(BaseUri, Morning);
+            DateTime date = DateTime.Now;
+            Uri uri;
+            if (date.Hour >= 12)
+                uri = new(BaseUri, Evening);
+            else
+                uri = new(BaseUri, Morning);
             
             try
             {
@@ -38,7 +44,7 @@ namespace HarleyFeedingTracker.Services
                 if (res.IsSuccessStatusCode)
                 {
                     string content = await res.Content.ReadAsStringAsync();
-                    FedItem fed = JsonSerializer.Deserialize<FedItem>(content)!;
+                    FeedItem fed = JsonSerializer.Deserialize<FeedItem>(content)!;
                     return fed.IsFed;
                 }
 
@@ -51,7 +57,36 @@ namespace HarleyFeedingTracker.Services
             return false;
         }
 
-        public async Task<bool> UpdateFedAsync()
+        public async Task<FeedItem> GetFedItemAsync()
+        {
+            DateTime date = DateTime.Now;
+            Uri uri;
+            if (date.Hour >= 12)
+                uri = new(BaseUri, Evening);
+            else
+                uri = new(BaseUri, Morning);
+
+            try
+            {
+                HttpResponseMessage res = _client.GetAsync(uri).Result;
+                if (res.IsSuccessStatusCode)
+                {
+                    string content = await res.Content.ReadAsStringAsync();
+                    FeedItem feed = JsonSerializer.Deserialize<FeedItem>(content)!;
+                    return feed;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+
+            return new FeedItem();
+            //throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdateFedAsync()
         {
 
             throw new NotImplementedException();

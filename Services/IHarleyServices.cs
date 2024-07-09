@@ -10,6 +10,7 @@ namespace HarleyFeedingTracker.Services
     public interface IHarleyServices
     {
         Task<bool> GetIsFedAsync();
+        Task<FeedItem> GetIsFedItemAsync();
         Task ChangeIsFedAsync();
     }
 }

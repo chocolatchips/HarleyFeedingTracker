@@ -24,5 +24,10 @@ namespace HarleyFeedingTracker.Services
         {
             return _restService.GetFedAsync();
         }
+
+        public Task<FeedItem> GetIsFedItemAsync()
+        {
+            return _restService.GetFedItemAsync();
+        }
     }
 }

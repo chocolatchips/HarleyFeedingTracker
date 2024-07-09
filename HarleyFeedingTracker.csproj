@@ -68,4 +68,16 @@
 	  <Folder Include="Views\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="FeedingPage.xaml.cs">
+	    <DependentUpon>FeedingPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="FeedingPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

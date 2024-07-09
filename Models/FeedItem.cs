@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HarleyFeedingTracker.Models
 {
-    public class FedItem
+    public class FeedItem
     {
         public bool IsFed { get; set; }
 
