@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HarleyFeedingTracker.Services
 {
-    interface IRestServices
+    public interface IRestService
     {
         public Task<bool> GetFedAsync();
         public Task<FeedItem> GetFedItemAsync();

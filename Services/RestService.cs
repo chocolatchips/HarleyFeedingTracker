@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace HarleyFeedingTracker.Services
 {
-    public class RestService : IRestServices
+    public class RestService : IRestService
     {   
         HttpClient _client;
         JsonSerializerOptions _serializerOptions;

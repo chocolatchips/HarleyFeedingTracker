@@ -5,13 +5,13 @@ namespace HarleyFeedingTracker
 {
     public partial class MainPage : ContentPage
     {
-        HarleyServices _harleyService;
+        IHarleyServices _harleyService;
 
 
-        public MainPage()
+        public MainPage(IHarleyServices service)
         {
             InitializeComponent();
-            _harleyService = new();
+            _harleyService = service;
             feedButton.Text = Text.FeedHarleyQuestion;
 
             if (DateTime.Now.Hour >= 12)
@@ -37,7 +37,7 @@ namespace HarleyFeedingTracker
 
         private async void OnFeedButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new FeedingPage());
+            await Shell.Current.GoToAsync(nameof(FeedingPage), true);
         }
     }
 

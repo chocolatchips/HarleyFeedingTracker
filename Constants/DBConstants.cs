@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HarleyFeedingTracker
+namespace HarleyFeedingTracker.Constants
 {
-    class DBConstants
+    public class DBConstants
     {
         public const string DatabaseFileName = "FeedingDetails.db3";
 

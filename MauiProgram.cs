@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using HarleyFeedingTracker.Data;
+using HarleyFeedingTracker.Services;
+using Microsoft.Extensions.Logging;
 
 namespace HarleyFeedingTracker
 {
@@ -18,6 +20,13 @@ namespace HarleyFeedingTracker
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+            builder.Services.AddSingleton<IRestService, RestService>();
+            builder.Services.AddSingleton<IHarleyServices, HarleyServices>();
+
+            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddTransient<FeedingPage>();
+
+            builder.Services.AddSingleton<FeedingDatabase>();
 
             return builder.Build();
         }

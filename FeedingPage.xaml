@@ -2,65 +2,102 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HarleyFeedingTracker.FeedingPage"
+             xmlns:models="clr-namespace:HarleyFeedingTracker.Models"
              Title="FeedingPage">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="2*" />
-        </Grid.ColumnDefinitions>
-        <Label Text="Dry food brand"
-               Grid.Column="0"
-               Grid.Row="0"
-               VerticalOptions="Center"
-               HorizontalOptions="Fill"
-               HorizontalTextAlignment="Center" />
-        <Picker x:Name="BrandPicker"
-                Grid.Row="0"
-                Grid.Column="1"
-                VerticalOptions="Center"
-                HorizontalOptions="Fill"
-                HorizontalTextAlignment="Start">
-            <Picker.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Acana</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
-        </Picker>
+    <VerticalStackLayout>
+        <Grid
+            Margin="50, 100, 50, 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
         
-        <Label Text="Dry food type"
-               Grid.Column="0"
-               Grid.Row="1"
-               VerticalOptions="Center"
-               HorizontalOptions="Fill"
-               HorizontalTextAlignment="Center"/>
-        <Picker x:Name="DryFoodPicker"
-                Grid.Row="1"
-                Grid.Column="1"
-                VerticalOptions="Center"
-                HorizontalOptions="Fill"
-                HorizontalTextAlignment="Start">
-            <Picker.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Chicken</x:String>
-                    <x:String>Beef</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
-        </Picker>
+            <Label Text="Dry food brand"
+                   Grid.Column="0"
+                   Grid.Row="0"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Fill"
+                   HorizontalTextAlignment="Center" />
+            <Picker x:Name="BrandPicker"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Fill"
+                    HorizontalTextAlignment="Start"
+                    ItemsSource="{Binding Brands}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedIndexChanged="OnBrandPickerSelection"/>
+
+            <Label Text="Dry food type"
+                   Grid.Column="0"
+                   Grid.Row="1"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Fill"
+                   HorizontalTextAlignment="Center"/>
+            <Picker x:Name="DryFoodPicker"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Fill"
+                    HorizontalTextAlignment="Start"
+                    ItemsSource="{Binding Flavours}"
+                    ItemDisplayBinding="{Binding Flavour}"
+                    SelectedIndexChanged="OnFlavourPickerSelection" 
+                    />
+
+            <Label Text="Treat type"
+                   Grid.Row="2"
+                   Grid.Column="0"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   />
+
+            <Picker x:Name="TreatPicker"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Fill"
+                    HorizontalTextAlignment="Center"
+                    SelectedIndexChanged="OnTreatPickerSelection"
+                    >
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Chicken</x:String>
+                        <x:String>Ground Beef</x:String>
+                        <x:String>Beef Treats</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+        </Grid>
         
-        <Label Text="Treat type"
-               Grid.Row="2"
-               Grid.Column="0"
-               VerticalOptions="Center"
-               HorizontalOptions="Center"
-               HorizontalTextAlignment="Center"/>
-        
-        
-    </Grid>
+        <Grid
+            HorizontalOptions="Center"
+            WidthRequest="300" 
+            Margin="0, 100, 0, 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button
+                x:Name="returnButton"
+                Clicked="ReturnButtonClicked"
+                Text="Return"
+                Grid.Column="0"/>
+            <Button
+                x:Name="saveButton"
+                Clicked="SaveButtonClicked"
+                Text="Save"
+                Grid.Column="2"/>
+        </Grid>
+    </VerticalStackLayout>
 </ContentPage>
