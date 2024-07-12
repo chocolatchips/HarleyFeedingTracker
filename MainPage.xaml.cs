@@ -38,6 +38,19 @@ namespace HarleyFeedingTracker
         private async void OnFeedButtonClicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync(nameof(FeedingPage), true);
+            
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            fedYetButton.Text = Text.FeedHarleyQuestion;
+            feedButton.IsVisible = false;
+        }
+
+        private async void OnDetailsButtonClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync(nameof(DetailsPage), true);
         }
     }
 

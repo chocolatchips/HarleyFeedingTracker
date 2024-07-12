@@ -15,9 +15,9 @@ namespace HarleyFeedingTracker.Services
             _restService = new RestService();
         }
 
-        public Task ChangeIsFedAsync()
+        public Task<bool> ChangeIsFedAsync()
         {
-            throw new NotImplementedException();
+            return _restService.UpdateFedAsync();
         }
 
         public Task<bool> GetIsFedAsync()

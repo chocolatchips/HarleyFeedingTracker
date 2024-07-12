@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Net.Http.Json;
 
 
 
@@ -14,8 +15,8 @@ namespace HarleyFeedingTracker.Services
 {
     public class RestService : IRestService
     {   
-        HttpClient _client;
-        JsonSerializerOptions _serializerOptions;
+        readonly HttpClient _client;
+        readonly JsonSerializerOptions _serializerOptions;
 
 
         public RestService()
@@ -31,13 +32,8 @@ namespace HarleyFeedingTracker.Services
 
         public async Task<bool> GetFedAsync()
         {
-            DateTime date = DateTime.Now;
-            Uri uri;
-            if (date.Hour >= 12)
-                uri = new(BaseUri, Evening);
-            else
-                uri = new(BaseUri, Morning);
-            
+            Uri uri = TimeOfDayUri();
+
             try
             {
                 HttpResponseMessage res = _client.GetAsync(uri).Result;
@@ -59,12 +55,7 @@ namespace HarleyFeedingTracker.Services
 
         public async Task<FeedItem> GetFedItemAsync()
         {
-            DateTime date = DateTime.Now;
-            Uri uri;
-            if (date.Hour >= 12)
-                uri = new(BaseUri, Evening);
-            else
-                uri = new(BaseUri, Morning);
+            Uri uri = TimeOfDayUri();
 
             try
             {
@@ -83,13 +74,39 @@ namespace HarleyFeedingTracker.Services
             }
 
             return new FeedItem();
-            //throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateFedAsync()
+        public async Task<bool> UpdateFedAsync()
         {
+            Uri uri = TimeOfDayUri();
+            try
+            {
+
+                HttpResponseMessage response = _client.PostAsync(uri, null).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    FeedItem res = JsonSerializer.Deserialize<FeedItem>(content)!;
+                    return res.IsFed;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            return false;
 
             throw new NotImplementedException();
+        }
+
+        private Uri TimeOfDayUri()
+        {
+            DateTime date = DateTime.Now;
+            Uri uri;
+            if (date.Hour >= 12)
+                return uri = new(BaseUri, Evening);
+            else
+                return uri = new(BaseUri, Morning);
         }
     }
 }

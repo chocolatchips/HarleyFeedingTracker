@@ -3,7 +3,9 @@ using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -79,7 +81,13 @@ namespace HarleyFeedingTracker.Data
             return await Database.Table<FeedingDetails>().ToListAsync();
         }
 
-
+        public async Task<List<FeedingDetails>> GetDetailsDateAsync(DateTime date)
+        {
+            await Init();
+            var dateString = date.ToString("yyyy MM dd");
+            return await Database.Table<FeedingDetails>()
+                .Where(d => d.Date ==  dateString).ToListAsync();
+        }
 
         public async Task<int> AddBrandAsync(FoodBrand brand)
         {
@@ -93,14 +101,12 @@ namespace HarleyFeedingTracker.Data
                 return await Database.InsertAsync(brand);
         }
 
-
         public async Task<int> AddFeedingDetails(FeedingDetails feedingDetails)
         {
             ArgumentNullException.ThrowIfNull(feedingDetails, nameof(feedingDetails));
             await Init();
             return await Database.InsertAsync(feedingDetails);
         }
-
 
         public async Task<int> DeleteBrandAsync(FoodBrand brand)
         {

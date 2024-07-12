@@ -17,27 +17,47 @@
                 Text="Hello!"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
-
+            
             <Label
                 Text="Are you checking if I need to be fed?"
                 Style="{StaticResource SubHeadline}"
                 SemanticProperties.HeadingLevel="Level2"
                 SemanticProperties.Description="Are you checking if Harley has been fed?" />
-
-            <Button
-                x:Name="fedYetButton"
-                Text="Have I been fed?" 
-                SemanticProperties.Hint="Returns if Harley has been fed"
-                Clicked="OnFedClicked"
-                HorizontalOptions="Center" />
-
-            <Button
-                x:Name="feedButton"
-                SemanticProperties.Hint="Button to provide details about feeding Harley."
-                Clicked="OnFeedButtonClicked"
-                IsVisible="False"
-                HorizontalOptions="Center" />
             
+            <Grid
+                ColumnSpacing="50"
+                RowSpacing="50">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button
+                    x:Name="fedYetButton"
+                    Text="Have I been fed?" 
+                    SemanticProperties.Hint="Returns if Harley has been fed"
+                    Clicked="OnFedClicked"
+                    HorizontalOptions="End" />
+
+                <Button
+                    x:Name="feedButton"
+                    SemanticProperties.Hint="Button to provide details about feeding Harley."
+                    Clicked="OnFeedButtonClicked"
+                    IsVisible="False"
+                    HorizontalOptions="End"
+                    Grid.Row="1" />
+
+                <Button
+                    x:Name="detailsButton"
+                    Clicked="OnDetailsButtonClicked"
+                    Text="View Feeding Details"
+                    HorizontalOptions="Start"
+                    Grid.Column="1"/>
+            </Grid>
+             
         </VerticalStackLayout>
     </ScrollView>
 

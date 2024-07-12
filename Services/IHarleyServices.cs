@@ -11,6 +11,6 @@ namespace HarleyFeedingTracker.Services
     {
         Task<bool> GetIsFedAsync();
         Task<FeedItem> GetIsFedItemAsync();
-        Task ChangeIsFedAsync();
+        Task<bool> ChangeIsFedAsync();
     }
 }

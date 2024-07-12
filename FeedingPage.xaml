@@ -63,7 +63,7 @@
                     Grid.Column="1"
                     VerticalOptions="Center"
                     HorizontalOptions="Fill"
-                    HorizontalTextAlignment="Center"
+                    HorizontalTextAlignment="Start"
                     SelectedIndexChanged="OnTreatPickerSelection"
                     >
                 <Picker.ItemsSource>

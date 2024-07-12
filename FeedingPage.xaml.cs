@@ -1,5 +1,6 @@
 using HarleyFeedingTracker.Data;
 using HarleyFeedingTracker.Models;
+using HarleyFeedingTracker.Services;
 using HarleyFeedingTracker.ViewModels;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -8,15 +9,14 @@ namespace HarleyFeedingTracker;
 
 public partial class FeedingPage : ContentPage
 {
-	readonly FeedingDatabase database;
-	ObservableCollection<FoodBrand> Brands { get; set; } = new();
 	readonly FeedingViewModel viewModel;
+	readonly IHarleyServices _harleyServices;
 
-	public FeedingPage(FeedingDatabase feedingDatabase)
+	public FeedingPage(FeedingDatabase feedingDatabase, IHarleyServices services)
 	{
 		InitializeComponent();
-		database = feedingDatabase;
 		viewModel = new FeedingViewModel(feedingDatabase);
+		_harleyServices = services;
 		BindingContext = viewModel;
     }
 
@@ -28,9 +28,10 @@ public partial class FeedingPage : ContentPage
 	async void SaveButtonClicked(object sender, EventArgs e)
 	{
 		int res = await viewModel.SaveFeeding();
-		if (res != 0)
+		bool saved = await _harleyServices.ChangeIsFedAsync();
+		if (res != 0 && saved)
 			await Shell.Current.GoToAsync("..");
-		
+
 	}
 
 	void OnBrandPickerSelection(object sender, EventArgs e)

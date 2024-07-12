@@ -20,6 +20,6 @@ namespace HarleyFeedingTracker.Models
         public string? Treat { get; set; }
 
         [Column("date")]
-        public DateTime Date { get; set; }
+        public string? Date { get; set; }
     }
 }

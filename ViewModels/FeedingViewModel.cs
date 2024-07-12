@@ -1,5 +1,6 @@
 ﻿using HarleyFeedingTracker.Data;
 using HarleyFeedingTracker.Models;
+using HarleyFeedingTracker.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,7 +28,6 @@ namespace HarleyFeedingTracker.ViewModels
             set
             {
                 _selectedBrand = value;
-                OnPropertyChanged(nameof(SelectedBrand));
             }
         }
 
@@ -37,7 +37,6 @@ namespace HarleyFeedingTracker.ViewModels
             set
             {
                 _selectedFlavour = value;
-                OnPropertyChanged(nameof(SelectedFlavour));
             }
         }
 
@@ -47,7 +46,6 @@ namespace HarleyFeedingTracker.ViewModels
             set
             {
                 _selectedTreat = value;
-                OnPropertyChanged(nameof(SelectedTreat));
             }
         }
 
@@ -57,9 +55,9 @@ namespace HarleyFeedingTracker.ViewModels
             Flavours = new ObservableCollection<FlavourItem>();
             _database = feedingDatabase;
 
-            
             LoadBrands();
             LoadFlavours();
+
             //FirstTimeSetup();
         }
 
@@ -113,7 +111,6 @@ namespace HarleyFeedingTracker.ViewModels
 
         private async void LoadFlavours()
         {
-            //var flav = await _database.GetAllFlavoursAsync();
             var flav = await _database.GetDistinctFlavoursAsync();
             Flavours.Clear();
             foreach (var flavour in flav)
@@ -124,7 +121,6 @@ namespace HarleyFeedingTracker.ViewModels
 
         private async void LoadBrands()
         {
-            //var brands = await _database.GetAllBrandsAsync();
             var brands = await _database.GetDistinctBrandsAsync();
             Brands.Clear();
             foreach (var brand in brands)
@@ -143,10 +139,16 @@ namespace HarleyFeedingTracker.ViewModels
             await _database.ClearTable<FlavourItem>();
         }
 
+        private async void ClearDetails()
+        {
+            await _database.ClearTable<FeedingDetails>();
+        }
+
         private void ClearTables()
         {
             ClearBrands();
             ClearFlavours();
+            ClearDetails();
         }
 
 
@@ -160,16 +162,10 @@ namespace HarleyFeedingTracker.ViewModels
                 Brand = SelectedBrand,
                 Flavour = SelectedFlavour,
                 Treat = SelectedTreat,
-                Date = DateTime.Now
+                Date = DateTime.Now.ToString("yyyy MM dd")
             };
 
             return await _database.AddFeedingDetails(details);
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

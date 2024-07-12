@@ -25,6 +25,7 @@ namespace HarleyFeedingTracker
 
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddTransient<FeedingPage>();
+            builder.Services.AddTransient<DetailsPage>();
 
             builder.Services.AddSingleton<FeedingDatabase>();
 
