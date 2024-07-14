@@ -46,78 +46,84 @@
                 Grid.Column="1"
                 Grid.Row="1"/>
         </Grid>
-        
-        <ScrollView
-            MaximumHeightRequest="500">
-            <Grid>
-                <CollectionView
-                    VerticalOptions="Center"
-                    ItemsSource="{Binding Details}"
-                    >
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:FeedingDetails">
-                            <Border
-                                HorizontalOptions="Center">
-                                <Border.Content>
-                                    <Grid Padding="20"
-                                        HorizontalOptions="Center"
-                                        ColumnSpacing="25"
-                                        RowSpacing="25">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="75" />
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <Label
-                                        Text="Brand"
-                                        HorizontalTextAlignment="Start" />
-                                        <Label
-                                        Text="{Binding Brand}"
-                                        Grid.Column="1"
-                                        HorizontalTextAlignment="End" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ScrollView
+                MaximumHeightRequest="500"
+                Grid.Column="0"
+                x:Name="detailsScroll">
+                <Grid>
+                    <CollectionView
+                        VerticalOptions="Center"
+                        ItemsSource="{Binding Details}"
+                        >
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:FeedingDetails">
+                                <Border
+                                    HorizontalOptions="Center">
+                                    <Border.Content>
+                                        <Grid Padding="20"
+                                            HorizontalOptions="Center"
+                                            ColumnSpacing="25"
+                                            RowSpacing="25">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="75" />
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label
+                                            Text="Brand"
+                                            HorizontalTextAlignment="Start" />
+                                            <Label
+                                            Text="{Binding Brand}"
+                                            Grid.Column="1"
+                                            HorizontalTextAlignment="End" />
 
-                                        <Label
-                                        Text="Flavour"
-                                        HorizontalTextAlignment="Start"
-                                        Grid.Row="1"/>
-                                        <Label
-                                        Text="{Binding Flavour}"
-                                        HorizontalTextAlignment="End"
-                                        Grid.Row="1"
-                                        Grid.Column="1"/>
+                                            <Label
+                                            Text="Flavour"
+                                            HorizontalTextAlignment="Start"
+                                            Grid.Row="1"/>
+                                            <Label
+                                            Text="{Binding Flavour}"
+                                            HorizontalTextAlignment="End"
+                                            Grid.Row="1"
+                                            Grid.Column="1"/>
 
-                                        <Label
-                                        Text="Treat"
-                                        HorizontalTextAlignment="Start"
-                                        Grid.Row="2"/>
-                                        <Label
-                                        Text="{Binding Treat}"
-                                        HorizontalTextAlignment="End"
-                                        Grid.Row="2"
-                                        Grid.Column="1"/>
+                                            <Label
+                                            Text="Treat"
+                                            HorizontalTextAlignment="Start"
+                                            Grid.Row="2"/>
+                                            <Label
+                                            Text="{Binding Treat}"
+                                            HorizontalTextAlignment="End"
+                                            Grid.Row="2"
+                                            Grid.Column="1"/>
 
-                                        <Label
-                                        Text="Date"
-                                        HorizontalTextAlignment="Start"
-                                        Grid.Row="3"/>
-                                        <Label
-                                        Text="{Binding Date}"
-                                        HorizontalTextAlignment="End"
-                                        Grid.Row="3"
-                                        Grid.Column="1"/>
-                                    </Grid>
-                                </Border.Content>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Grid>
-        </ScrollView>
-        
+                                            <Label
+                                            Text="Date"
+                                            HorizontalTextAlignment="Start"
+                                            Grid.Row="3"/>
+                                            <Label
+                                            Text="{Binding Date}"
+                                            HorizontalTextAlignment="End"
+                                            Grid.Row="3"
+                                            Grid.Column="1"/>
+                                        </Grid>
+                                    </Border.Content>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </ScrollView>
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

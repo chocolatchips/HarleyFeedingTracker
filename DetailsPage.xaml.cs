@@ -20,6 +20,14 @@ public partial class DetailsPage : ContentPage
 	{
 		allDetailsButton.Text = Constants.Text.GetAllDetails;
 		pickerLabel.Text = Constants.Text.DetailsDatePicker;
+		if (DeviceInfo.Platform == DevicePlatform.WinUI)
+		{
+			var cur = App.Current;
+			if (cur != null)
+			{
+				detailsScroll.MaximumHeightRequest = cur.Windows[0].Height / 2;
+			}
+		}
 	}
 
 	void GetAllDetails(object sender, EventArgs e)
