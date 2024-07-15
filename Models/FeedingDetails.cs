@@ -11,15 +11,15 @@ namespace HarleyFeedingTracker.Models
     public class FeedingDetails
     {
         [Column("brand")]
-        public string? Brand {  get; set; }
+        public string Brand {  get; set; }
 
         [Column("flavour")]
-        public string? Flavour { get; set; }
+        public string Flavour { get; set; }
 
         [Column("treat")]
-        public string? Treat { get; set; }
+        public string Treat { get; set; }
 
         [Column("date")]
-        public string? Date { get; set; }
+        public string Date { get; set; }
     }
 }

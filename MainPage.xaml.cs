@@ -12,7 +12,7 @@ namespace HarleyFeedingTracker
         {
             InitializeComponent();
             _harleyService = service;
-            feedButton.Text = Text.FeedHarleyQuestion;
+            feedButton.Text = TextConstants.FeedHarleyQuestion;
 
             if (DateTime.Now.Hour >= 12)
                 harleyImage.Source = "harleynight.jpeg";
@@ -26,11 +26,11 @@ namespace HarleyFeedingTracker
             bool isFed = await _harleyService.GetIsFedAsync();
             if (isFed)
             {
-                fedYetButton.Text = Text.HarleyWasFed;
+                fedYetButton.Text = TextConstants.HarleyWasFed;
             }
             else
             {
-                fedYetButton.Text = Text.HarleyNotFed;
+                fedYetButton.Text = TextConstants.HarleyNotFed;
                 feedButton.IsVisible = true;
             }
         }
@@ -44,7 +44,7 @@ namespace HarleyFeedingTracker
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            fedYetButton.Text = Text.FeedHarleyQuestion;
+            fedYetButton.Text = TextConstants.FeedHarleyQuestion;
             feedButton.IsVisible = false;
         }
 

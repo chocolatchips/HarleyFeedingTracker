@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace HarleyFeedingTracker.Constants
 {
-    class Text
+    class TextConstants
+
     {
         private static readonly string harleyWasFed = "Harley has been fed.";
         private static readonly string harleyNotFed = "Harley has not been fed.";
